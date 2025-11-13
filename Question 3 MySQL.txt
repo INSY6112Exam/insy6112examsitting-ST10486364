@@ -1,0 +1,86 @@
+Use st10486364_insy6112_exam;
+
+#1 Creating a Patient table
+#Q3.1
+CREATE TABLE IF NOT EXIST `Patient`(
+
+`id` INT NOT NULL AUTO_INCREMENT,
+`PatientName` VARCHAR (100),
+`PatientSurname` VARCHAR (100),
+`PatientDOB` VARCHAR (100),
+Primary Key (`id`)
+);
+
+#2 Creating a Doctor table
+#Q3.2
+`id` INT NOT NULL AUTO_INCREMENT,
+`DoctorName` VARCHAR (100),
+`DoctorSurname` VARCHAR (100),
+Primary Key (`id`)
+);
+
+#3 Creating a Appointments table
+#Q3.3
+`AppiontmentID` INT NOT NULL AUTO_INCREMENT
+`PatientID` INT NOT NULL,
+`DoctorID` INT NOT NULL, 
+`AppiontmentDate` VARCHAR (100),
+`AppiontmentTime` VARCHAR (100),
+`AppiontmentDuration` VARCHAR (100),
+Primary Key (`AppiontmentID`)
+Foriegn key (`PatientID`) REFERENCE `Patient`(`ID`)
+Foriegn key (`DoctorID`) REFERENCE `Doctor`(`ID`)
+);
+
+#4 Insert data into Patient table
+#Q3.4
+INSERT INTO `Patient` (`PatientID`, `PatientNmae`, `PatientSurname`, `Date of birth`)
+VALUES
+('1', 'Debbie', 'Theart', '1980-03-17');
+('2', 'Thomas', 'Duncan', '1976-08-12');
+
+#5 Insert data into Doctor table
+INSERT INTO `Doctor` (`DoctorID`, `DoctorName`, `DoctorSurname`)
+VALUES
+('1', 'Zintle', 'Nukani');
+('2', 'Ravi', 'Maharaj');
+
+#6 Insert data into Appointments
+INSERT INTO `Appointments` (`Appiontmentid`,`Date`,`Time`, `Duration`, `Doctorid`,`Patientid`)
+('1', '2024-01-15', '9:00', '15','2','1');
+('2',2024-01-18', '15:00', '30','2','2');
+('3',2024-01-20', '10:00', '15','1','1');
+('4', 2024-01-21', '11:00', '15','2','1');
+
+--------------------------------------------
+Q3.5
+Use st10486364_insy6112_exam;
+
+# Displaying all appiontments between 2025-01-16 and 2025-01-20
+SELECT date
+FROM Appointment
+WHERE date BETWEEN 2025-01-16 AND 2025-01-20;
+
+-------------------------------------------------
+Q3.6
+Use st10486364_insy6112_exam;
+
+# Displaying the names and surnames of patients + total number off Appiontments they have.Sorted in Descending order
+SELECT name, surname, COUNT (AppointmentID) AS numberOfAppointments
+FROM Appointment
+GROUP BY name,surname
+ORDER BY numberOfAppointments DESC;
+
+-------------------------------------------------
+Q3.7
+Use st10486364_insy6112_exam;
+
+#Displaying patients who had an appointment with a doctor with ID number 2 and sorting in ascending alphabetical order according to surnames.
+SELECT Patient.PatientName,Patient.PatientSurname
+FROM Patient
+JOIN Patient ON Appointments.PatientID = Patient.PatientID
+WHERE Appointments.DoctorID = 2
+ORDER BY Patient.PatientSurname ASC;
+
+
+
